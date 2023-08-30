@@ -2,12 +2,12 @@ package database
 
 import "github.com/jmoiron/sqlx"
 
-type Storage struct {
+type Repository struct {
 	db *sqlx.DB
 }
 
-func New(db *sqlx.DB) *Storage {
-	return &Storage{
+func New(db *sqlx.DB) *Repository {
+	return &Repository{
 		db: db,
 	}
 }

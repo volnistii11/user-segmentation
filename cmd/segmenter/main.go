@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/volnistii11/user-segmentation/internal/app/segmenter/Router"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
 	"github.com/volnistii11/user-segmentation/internal/config"
 	"go.uber.org/zap"
@@ -24,9 +25,13 @@ func main() {
 
 	conn, err := database.NewConnection(cfg.DatabaseDriver, cfg.DatabaseDSN)
 	if err != nil {
-		logger.Error("failed to create db connection: %v", zap.String("err", err.Error()))
+		logger.Error("failed to create db connection", zap.Error(err))
 	}
 
-	_ = database.New(conn)
+	repo := database.New(conn)
 
+	router := Router.New(logger, repo)
+	if err = router.Serve().Run(cfg.HTTPServerAddress); err != nil {
+		logger.Error("failed to start http server", zap.Error(err))
+	}
 }
