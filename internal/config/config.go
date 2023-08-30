@@ -29,14 +29,14 @@ func (cfg *Config) Parse() error {
 
 	flag.StringVar(&cfg.DatabaseDSN, "d", defaultValues.DatabaseDSN, "database dsn")
 	flag.StringVar(&cfg.DatabaseDriver, "r", defaultValues.DatabaseDriver, "database driver")
-	flag.StringVar(&cfg.HTTPServerAddress, "a", defaultValues.HTTPServerAddress, "http server address")
+	flag.StringVar(&cfg.HTTPServerAddress, "a", defaultValues.HTTPServerAddress, "http Router address")
 	flag.Parse()
 
 	return nil
 }
 
 func parseDefaultValues() (*Config, error) {
-	configPath := "./config/local.yaml"
+	configPath := "../../config/config.yaml"
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		return nil, errors.Wrap(err, "osStat")
 	}
