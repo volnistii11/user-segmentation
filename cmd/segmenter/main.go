@@ -1,8 +1,8 @@
 package segmenter
 
 import (
-	"github.com/volnistii11/user-segmentation/internal/app/config"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
+	"github.com/volnistii11/user-segmentation/internal/config"
 	"go.uber.org/zap"
 	"log"
 )
