@@ -1,9 +1,10 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/api"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
+
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 

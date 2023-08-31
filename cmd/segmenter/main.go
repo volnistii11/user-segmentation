@@ -1,13 +1,14 @@
 package main
 
 import (
+	"log"
+
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/router"
 	"github.com/volnistii11/user-segmentation/internal/config"
-	"go.uber.org/zap"
-	"log"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"go.uber.org/zap"
 )
 
 func main() {

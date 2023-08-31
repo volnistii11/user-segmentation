@@ -2,9 +2,10 @@ package config
 
 import (
 	"flag"
+	"os"
+
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/pkg/errors"
-	"os"
 )
 
 type Config struct {

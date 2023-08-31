@@ -3,13 +3,15 @@ package api
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/gin-gonic/gin"
-	"github.com/go-playground/assert/v2"
-	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
-	"go.uber.org/zap"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-playground/assert/v2"
+	"go.uber.org/zap"
 )
 
 func SetUpRouter() *gin.Engine {

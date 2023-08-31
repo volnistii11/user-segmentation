@@ -3,11 +3,13 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"net/http"
+
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/model"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
+
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-	"net/http"
 )
 
 type API struct {
