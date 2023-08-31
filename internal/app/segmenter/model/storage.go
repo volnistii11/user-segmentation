@@ -5,7 +5,7 @@ type Segment struct {
 }
 
 type User struct {
-	ID uint `json:"user_id"`
+	ID uint `json:"user_id,string"`
 }
 
 type UsersSegments struct {
