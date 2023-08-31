@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS Segment
 CREATE TABLE IF NOT EXISTS UsersSegments
 (
     userId    integer,
-    segmentId integer
+    segmentId integer not null unique
 );
 COMMIT;
