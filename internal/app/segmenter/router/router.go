@@ -26,7 +26,7 @@ func (r *Router) Serve() *gin.Engine {
 
 	r.httpServer.POST("/api/segment/create", handlers.CreateSegment)
 	r.httpServer.POST("/api/segment/delete", handlers.DeleteSegment)
-	r.httpServer.POST("/api/segment/user", handlers.AddUserToSegments)
+	r.httpServer.POST("/api/segment/user", handlers.UpdateUserSegments)
 	r.httpServer.GET("/api/user/segment", handlers.GetUserSegments)
 
 	return r.httpServer

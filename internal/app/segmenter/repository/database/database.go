@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -16,22 +17,18 @@ func New(db *sqlx.DB) *Repository {
 	}
 }
 
-func (repo *Repository) AddSegment(segmentName string) (int64, error) {
+func (repo *Repository) AddSegment(segmentName string) error {
 	sb := squirrel.StatementBuilder.
 		Insert("Segment").
 		Columns("slug").
 		PlaceholderFormat(squirrel.Dollar).
 		RunWith(repo.db)
 	sb = sb.Values(segmentName)
-	result, err := sb.Exec()
-	if err != nil {
-		return 0, errors.Wrap(err, "sb.exec")
+	if _, err := sb.Exec(); err != nil {
+		return errors.Wrap(err, "sb.exec")
 	}
-	lastInsertID, err := result.LastInsertId()
-	if err != nil {
-		return 0, errors.Wrap(err, "lastInsertID")
-	}
-	return lastInsertID, nil
+
+	return nil
 }
 
 func (repo *Repository) DeleteSegment(segmentName string) error {
@@ -78,7 +75,7 @@ func (repo *Repository) AddUserToSegments(userID uint, segments []string) error 
 	for _, segment := range segments {
 		segmentID, err := repo.getSegmentIDBySlug(segment)
 		if err != nil {
-			return errors.Wrap(err, "getSegmentIDBySlug")
+			return errors.New(fmt.Sprintf("segment %s not found", segment))
 		}
 		sb = sb.Values(
 			userID,

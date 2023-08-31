@@ -8,7 +8,8 @@ type User struct {
 	ID uint `json:"user_id,string"`
 }
 
-type UsersSegments struct {
-	UserID    uint
-	SegmentID uint
+type UserSegments struct {
+	UserID           uint     `json:"user_id,string"`
+	SegmentsToAdd    []string `json:"add_segments"`
+	SegmentsToDelete []string `json:"delete_segments"`
 }
