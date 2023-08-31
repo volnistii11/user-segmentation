@@ -55,6 +55,7 @@ func (repo *Repository) GetUserSegments(userID uint) ([]string, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "select user segments")
 	}
+
 	for result.Next() {
 		var segment string
 		if err = result.Scan(&segment); err != nil {
@@ -83,6 +84,7 @@ func (repo *Repository) AddUserToSegments(userID uint, segments []string) error 
 			segmentID,
 		)
 	}
+	
 	if _, err := sb.Exec(); err != nil {
 		return errors.Wrap(err, "sb.exec")
 	}
