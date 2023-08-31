@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/model"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
@@ -41,6 +42,7 @@ func (a *API) CreateSegment(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
+	fmt.Println(123)
 	err = a.repo.AddSegment(bufRequest.Slug)
 	if err != nil {
 		a.logger.Error("", zap.Error(err))
