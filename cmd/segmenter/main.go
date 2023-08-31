@@ -1,10 +1,14 @@
-package segmenter
+package main
 
 import (
-	"github.com/volnistii11/user-segmentation/internal/app/config"
-	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
-	"go.uber.org/zap"
 	"log"
+
+	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
+	"github.com/volnistii11/user-segmentation/internal/app/segmenter/router"
+	"github.com/volnistii11/user-segmentation/internal/config"
+
+	_ "github.com/jackc/pgx/v5/stdlib"
+	"go.uber.org/zap"
 )
 
 func main() {
@@ -18,7 +22,17 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to start logger")
 	}
+	defer logger.Sync()
 
-	db, err := database.NewConnection(cfg.DatabaseDriver, cfg.DatabaseDSN)
+	conn, err := database.NewConnection(cfg.DatabaseDriver, cfg.DatabaseDSN)
+	if err != nil {
+		logger.Error("failed to create db connection", zap.Error(err))
+	}
 
+	repo := database.New(conn)
+
+	router := router.New(logger, repo)
+	if err = router.Serve().Run(cfg.HTTPServerAddress); err != nil {
+		logger.Error("failed to start http server", zap.Error(err))
+	}
 }
