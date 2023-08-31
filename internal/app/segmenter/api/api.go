@@ -51,7 +51,32 @@ func (a *API) CreateSegment(ctx *gin.Context) {
 }
 
 func (a *API) DeleteSegment(ctx *gin.Context) {
-
+	if ctx.GetHeader("content-type") != "application/json" {
+		ctx.JSON(http.StatusBadRequest, "only json content-type")
+		return
+	}
+	body, err := ctx.GetRawData()
+	if err != nil {
+		a.logger.Error("", zap.Error(err))
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	if len(body) == 0 {
+		ctx.JSON(http.StatusBadRequest, "body is empty")
+		return
+	}
+	bufRequest := model.Segment{}
+	if err = json.Unmarshal(body, &bufRequest); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+	err = a.repo.DeleteSegment(bufRequest.Slug)
+	if err != nil {
+		a.logger.Error("", zap.Error(err))
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	ctx.JSON(http.StatusOK, "")
 }
 
 func (a *API) AddUserToSegments(ctx *gin.Context) {
