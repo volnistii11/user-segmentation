@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/volnistii11/user-segmentation/internal/app/segmenter/Router"
 	"github.com/volnistii11/user-segmentation/internal/app/segmenter/repository/database"
+	"github.com/volnistii11/user-segmentation/internal/app/segmenter/router"
 	"github.com/volnistii11/user-segmentation/internal/config"
 	"go.uber.org/zap"
 	"log"
@@ -30,7 +30,7 @@ func main() {
 
 	repo := database.New(conn)
 
-	router := Router.New(logger, repo)
+	router := router.New(logger, repo)
 	if err = router.Serve().Run(cfg.HTTPServerAddress); err != nil {
 		logger.Error("failed to start http server", zap.Error(err))
 	}

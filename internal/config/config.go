@@ -29,7 +29,7 @@ func (cfg *Config) Parse() error {
 
 	flag.StringVar(&cfg.DatabaseDSN, "d", defaultValues.DatabaseDSN, "database dsn")
 	flag.StringVar(&cfg.DatabaseDriver, "r", defaultValues.DatabaseDriver, "database driver")
-	flag.StringVar(&cfg.HTTPServerAddress, "a", defaultValues.HTTPServerAddress, "http Router address")
+	flag.StringVar(&cfg.HTTPServerAddress, "a", defaultValues.HTTPServerAddress, "http router address")
 	flag.Parse()
 
 	return nil
